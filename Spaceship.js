@@ -1,5 +1,5 @@
 class SpaceShip {
-    constructor(canvas,x, y, width, height, src) {
+    constructor(canvas, x, y, width, height, src) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.image = new Image();
@@ -8,6 +8,7 @@ class SpaceShip {
         this.width = width;
         this.height = height;
         this.image.src = src;
+        this.score = 0;
     }
 
     drawImage() {
@@ -15,11 +16,19 @@ class SpaceShip {
     }
 
     moveUp() {
-        this.y -= 5;
+        this.y-=5;
     }
 
     moveDown() {
-        this.y += 5;
+        this.y+=5;
+    }
+
+    hasPlayerScoredAPoint() {
+        if (this.y <= 0) {
+            this.score++;
+            clearCanvas();
+            this.drawImage();
+        }
     }
 }
 
@@ -64,8 +73,8 @@ function moveRightShip() {
     }
 }
 
+addEventListener('keydown', moveRightShip)
+
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-addEventListener('keydown', moveRightShip)
