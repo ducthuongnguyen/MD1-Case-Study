@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easy Level</title>
+    <script src="Spaceship.js"></script>
+    <script src="Debris.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<canvas id="myCanvas" width='500' height="400" style="border: 2px solid black"></canvas>
+<body>
+
+</body>
+</html>
+<script>
+    let canvas = document.getElementById('myCanvas');
+    let ctx = canvas.getContext('2d');
+    let leftShip = new SpaceShip(canvas,100, 350, 30, 40, 'img/spaceship.png');
+    let rightShip = new SpaceShip(canvas, 350, 30, 40, 'img/spaceship.png');
+    window.onload = function () {
+        leftShip.drawImage();
+        rightShip.drawImage();
+    }
+    const allDebris = [];
+    let count = 0;
+
+    function addDebris() {
+        let posY = [0, 20, 50, 100, 150, 200, 250, 300, 320];
+        let randY = Math.floor(Math.random() * posY.length);
+        let randomX = Math.floor(Math.random() * 20) + canvas.width;
+        let debris = new Debris(randomX, posY[randY]);
+        allDebris.push(debris);
+        count++;
+    }
+
+    setInterval(addDebris, 300)
+
+    function animate() {
+        clearCanvas();
+        allDebris.forEach(function (item) {
+            item.update();
+        })
+        window.requestAnimationFrame(animate);
+    }
+
+    function main() {
+        animate();
+        leftShip.drawImage();
+        rightShip.drawImage();
+    }
+
+    main();
+
+
+</script>

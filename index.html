@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Space Race</title>
+</head>
+<style>
+    #playGame:hover {
+        width: 210px;
+        height: 120px;
+    }
+</style>
+<body style="background:url('Image/Background_start.jpg') no-repeat; background-size: 1300px">
+<img src="img/play_button.png" alt="playGame" onclick="startGame()" id="playGame" style="background:url('Image/Background_start.jpg') no-repeat; background-size: 1300px">
+</body>
+</html>
+<script>
+    function startGame() {
+        window.location.href = 'choose_level.html';
+    }
+</script>

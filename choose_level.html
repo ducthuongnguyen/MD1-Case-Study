@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Level</title>
+</head>
+<style>
+    #easy:hover {
+        width: 14%;
+    }
+
+    #medium:hover {
+        width: 14%;
+    }
+
+    #hard:hover {
+        width: 14%;
+    }
+
+    .level {
+        height: 40px;
+        width: 180px;
+    }
+</style>
+<body>
+<div><img class="level" id="easy" src="img/easy_button.PNG" alt="easyButton" onclick="chooseEasy()"></div>
+<div><img class="level" id="medium" src="img/medium_button.PNG" alt="mediumButton" onclick="chooseMedium()"></div>
+<div><img class="level" id="hard" src="img/hard_button.PNG" alt="hardButton" onclick="chooseHard()"></div>
+</body>
+</html>
+<script>
+    function chooseEasy() {
+        window.location.href ='easy_level.html';
+    }
+    function chooseMedium() {
+        window.location.href ='medium_level.html';
+    }
+    function chooseHard() {
+        window.location.href ='hard_level.html';
+    }
+</script>
