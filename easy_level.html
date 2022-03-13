@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="Timer.js"></script>
     <script src="Score.js"></script>
+    <script src="check_crash.js"></script>
 </head>
 <canvas id="myCanvas" width='500' height="400" style="border: 2px solid black"></canvas>
 <body>
@@ -20,15 +21,8 @@
     let leftShip = new SpaceShip(canvas, 100, 350, 30, 40, 'img/spaceship.png');
     let rightShip = new SpaceShip(canvas, 360, 350, 30, 40, 'img/spaceship.png');
     let timer = new Timer();
-    let leftScore = new Score(canvas.width * 0.33 - 40);
-    let rightScore = new Score(canvas.width * 0.66 + 40);
-    // window.onload = function () {
-    //     leftShip.drawImage();
-    //     rightShip.drawImage();
-    // }
-
-    leftScore.displayScore(leftScore.displayScore());
-
+    let leftScore = new Score(canvas.width * 0.1);
+    let rightScore = new Score(canvas.width * 0.85);
     const allDebris = [];
 
     function addDebris() {
@@ -38,7 +32,8 @@
         let debris = new Debris(randomX, posY[randY]);
         allDebris.push(debris);
     }
-
+    //
+    // console.log('bn--->',allDebris.length)
     setInterval(addDebris, 300)
 
     function animate() {
@@ -50,16 +45,12 @@
         leftShip.drawImage();
         rightShip.drawImage();
         timer.displayTimer();
-    }
-
-
-    function setup() {
-        animate();
-        // timer.displayTimer();
         timer.countDown();
+        leftScore.displayScore(leftShip.score);
+        rightScore.displayScore(rightShip.score);
     }
+    animate();
 
-    setup()
 
 
 

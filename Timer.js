@@ -1,13 +1,13 @@
 class Timer {
     constructor() {
-        this.x = canvas.width / 2 +2.5;
-        this.y = canvas.height - this.x;
+        this.x = canvas.width / 2 - 5;
+        this.y = 0;
         this.color = '#fff';
     }
 
     displayTimer() {
         ctx.beginPath();
-        ctx.rect(this.x, this.y,5,300 );
+        ctx.rect(this.x, this.y, 5, canvas.height);
         ctx.shadowColor = this.color;
         ctx.shadowBlur = 5;
         ctx.fillStyle = this.color;
@@ -15,7 +15,7 @@ class Timer {
         ctx.closePath();
     }
 
-    countDown(){
-        this.y += 5;
+    countDown() {
+        this.y += 0.1;
     }
 }

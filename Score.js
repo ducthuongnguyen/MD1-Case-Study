@@ -5,8 +5,7 @@ class Score {
     }
 
     displayScore(score){
-        ctx.font ='20px Georgia';
+        ctx.font ='50px Arial';
         ctx.fillText(score,this.x,this.y);
-
     }
 }
