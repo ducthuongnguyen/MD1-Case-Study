@@ -8,17 +8,36 @@
     <link rel="stylesheet" href="style.css">
     <script src="Timer.js"></script>
     <script src="Score.js"></script>
+
 </head>
 <canvas id="myCanvas" width='500' height="400" style="border: 2px solid black"></canvas>
+<canvas id="instruction" width='350' height="400" style="border: 2px solid black"></canvas>
 <div>
     <button onclick="setup()">Play</button>
+    <button onclick="stopGame()">Stop</button>
 </div>
-<!--<canvas id="instruction" width='1500' height="800" style="border: 2px solid black"></canvas>-->
+
 <body>
 
 </body>
 </html>
 <script>
+    let myInstruction = document.getElementById('instruction');
+    let pen = myInstruction.getContext('2d');
+    pen.font = '33px Arial';
+    pen.fillText('How to play', 90, 50);
+    pen.font = '20px Arial';
+    pen.fillText('Press button ↑ to go up', 10, 100);
+    pen.fillText('Press button ↓ to go down', 10, 130);
+    pen.fillText('Cannot go right or left', 10, 160);
+    pen.fillText('Across once you will gain 1 point', 10, 190);
+    pen.fillText('Each turn estimated 1 minute', 10, 220);
+    pen.fillText('Now enjoy it.', 10, 250);
+    pen.fillText('Thuong Nguyen', 170, 300);
+    pen.fillText('03/16/2022', 200, 330);
+    pen.fillStroke = '#880000';
+    console.log('co ra k',)
+
     let canvas = document.getElementById('myCanvas');
     let ctx = canvas.getContext('2d');
     let ship = new SpaceShip(canvas, 350, 30, 40, 'img/spaceship.png');
@@ -26,9 +45,10 @@
     let score = new Score();
     const allDebris = [];
     let audioRace = new Audio('music/race.mp3');
-    let audioGameOver = new Audio('music/gameover.mp3');
+    let audioGameOver = new Audio('music/over.mp3');
     let audioScore = new Audio('music/scorepoint.mp3');
     let audioCrash = new Audio('music/crash.mp3');
+    let audioStop = new Audio('music/stop.mp3');
     let startGame = false;
 
     function addDebris() {
@@ -86,11 +106,20 @@
 
     function endGame() {
         if (timer.y > canvas.height) {
+            audioRace.pause();
             audioGameOver.play();
             window.location.reload();
             alert('End game!! You earned ' + ship.score + ' points!');
         }
     }
 
+    function stopGame() {
+        if (!startGame) return;
+        startGame = false;
+        audioRace.pause();
+        audioStop.play();
+        window.location.reload();
+        alert('You stopped the game. The game will be restarted.');
+    }
 
 </script>

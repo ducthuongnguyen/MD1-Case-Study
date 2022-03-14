@@ -1,6 +1,6 @@
-canvas{
+#myCanvas{
     background: url("img/entrance.jpg");
-    /*background-color: black;*/
+    background-size: cover;
 }
 body {
     margin: 0;
