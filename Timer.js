@@ -1,6 +1,6 @@
 class Timer {
     constructor() {
-        this.x = canvas.width / 2 - 5;
+        this.x = canvas.width*.2;
         this.y = 0;
         this.color = '#fff';
     }
@@ -18,4 +18,5 @@ class Timer {
     countDown() {
         this.y += 0.1;
     }
+
 }

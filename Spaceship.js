@@ -1,9 +1,9 @@
 class SpaceShip {
-    constructor(canvas, x, y, width, height, src) {
+    constructor(canvas, y, width, height, src) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.image = new Image();
-        this.x = x;
+        this.x = canvas.width * .5;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -16,64 +16,43 @@ class SpaceShip {
     }
 
     moveUp() {
-        this.y-=5;
+        this.y -= 5;
     }
 
     moveDown() {
-        this.y+=5;
+        this.y += 5;
     }
 
     hasPlayerScoredAPoint() {
-        if (this.y <= 0) {
+        if (this.y + this.height <= 0) {
+            audioScore.play();
+            ship.x = canvas.width * .5;
+            ship.y = 350;
             this.score++;
-            clearCanvas();
-            this.drawImage();
         }
     }
+
 }
 
-function moveLeftShip() {
-    if (leftShip.y < -30 || leftShip.y > 350) {
-        leftShip.x = 100;
-        leftShip.y = 350;
-    } else {
-        switch (event.keyCode) {
-            case 87:
-                leftShip.moveUp();
-                break;
-            case 83:
-                leftShip.moveDown();
-                break;
-                clearCanvas();
-                leftShip.drawImage();
-                rightShip.drawImage();
-        }
-    }
-}
-
-
-addEventListener('keydown', moveLeftShip);
-
-function moveRightShip() {
-    if (rightShip.y < -30 || rightShip.y > 350) {
-        rightShip.x = 350;
-        rightShip.y = 350;
+function moveShip() {
+    if (ship.y > 350) {
+        ship.x = canvas.width * .5;
+        ship.y = 350;
     } else {
         switch (event.keyCode) {
             case 38:
-                rightShip.moveUp();
+                ship.moveUp();
                 break;
             case 40:
-                rightShip.moveDown();
+                ship.moveDown();
                 break;
+                clearCanvas();
+                ship.drawImage();
         }
-        clearCanvas();
-        rightShip.drawImage();
-        leftShip.drawImage();
     }
 }
 
-addEventListener('keydown', moveRightShip)
+addEventListener('keydown', moveShip);
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

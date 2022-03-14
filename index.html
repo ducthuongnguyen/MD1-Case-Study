@@ -2,20 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Space Race</title>
+    <title>Easy Level</title>
+    <script src="Spaceship.js"></script>
+    <script src="Debris.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="Timer.js"></script>
+    <script src="Score.js"></script>
 </head>
-<style>
-    #playGame:hover {
-        width: 210px;
-        height: 120px;
-    }
-</style>
-<body style="background:url('Image/Background_start.jpg') no-repeat; background-size: 1300px">
-<img src="img/play_button.png" alt="playGame" onclick="startGame()" id="playGame" style="background:url('Image/Background_start.jpg') no-repeat; background-size: 1300px">
+<canvas id="myCanvas" width='500' height="400" style="border: 2px solid black"></canvas>
+<body>
+
 </body>
 </html>
 <script>
-    function startGame() {
-        window.location.href = 'choose_level.html';
+    let canvas = document.getElementById('myCanvas');
+    let ctx = canvas.getContext('2d');
+    let ship = new SpaceShip(canvas, 350, 30, 40, 'img/spaceship.png');
+    let timer = new Timer();
+    let score = new Score();
+    const allDebris = [];
+    let audioRace = new Audio('music/race.mp3');
+    let audioGameOver = new Audio('music/gameover.mp3');
+    let audioScore = new Audio('music/scorepoint.mp3');
+    let audioCrash = new Audio('music/crash');
+
+
+    function addDebris() {
+        let posY = [0, 20, 50, 100, 150, 180, 200, 250, 270, 300, 320];
+        let randY = Math.floor(Math.random() * posY.length);
+        let randomX = Math.floor(Math.random() * 20) + canvas.width;
+        let debris = new Debris(randomX, posY[randY]);
+        allDebris.push(debris);
     }
+
+    let setTimeAppearDebris = setInterval(appearDebris, 300);
+
+    let count = 0;
+
+    function appearDebris() {
+        addDebris();
+        audioRace.play();
+        count++;
+        if (count > 220) {
+            clearInterval(setTimeAppearDebris);
+        }
+    }
+
+    function setup() {
+        clearCanvas();
+        allDebris.forEach(function (item) {
+            checkCrash(item, ship)
+            item.update();
+        })
+        window.requestAnimationFrame(setup);
+        ship.drawImage();
+        timer.displayTimer();
+        timer.countDown();
+        score.displayScore(ship.score);
+        endGame();
+    }
+
+    setup();
+
+    function checkCrash(obj1, obj2) {
+        if (obj2.x + obj2.width > obj1.x - obj1.radius &&
+            obj1.y + obj1.radius > obj2.y &&
+            obj1.x + obj1.radius > obj2.x &&
+            obj1.y - obj1.radius < obj2.y + obj2.height
+        ) {
+            audioCrash.play();
+            ship.x = canvas.width * .5;
+            ship.y = 350;
+        } else {
+            ship.hasPlayerScoredAPoint();
+        }
+    }
+
+    function endGame() {
+        if (timer.y > canvas.height) {
+            audioGameOver.play();
+            window.location.reload();
+            alert('End game!! You earned ' + ship.score + ' points!');
+        }
+    }
+
+
 </script>

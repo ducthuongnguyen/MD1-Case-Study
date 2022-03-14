@@ -1,6 +1,6 @@
 class Score {
-    constructor(x) {
-    this.x = x;
+    constructor() {
+    this.x = canvas.width * .8;
     this.y = canvas.height - 20;
     }
 
