@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Easy Level</title>
+    <title>Space Race</title>
     <script src="Spaceship.js"></script>
     <script src="Debris.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -10,6 +10,10 @@
     <script src="Score.js"></script>
 </head>
 <canvas id="myCanvas" width='500' height="400" style="border: 2px solid black"></canvas>
+<div>
+    <button onclick="setup()">Play</button>
+</div>
+<!--<canvas id="instruction" width='1500' height="800" style="border: 2px solid black"></canvas>-->
 <body>
 
 </body>
@@ -24,11 +28,11 @@
     let audioRace = new Audio('music/race.mp3');
     let audioGameOver = new Audio('music/gameover.mp3');
     let audioScore = new Audio('music/scorepoint.mp3');
-    let audioCrash = new Audio('music/crash');
-
+    let audioCrash = new Audio('music/crash.mp3');
+    let startGame = false;
 
     function addDebris() {
-        let posY = [0, 20, 50, 100, 150, 180, 200, 250, 270, 300, 320];
+        let posY = [0, 20, 50, 100, 150, 180, 200, 250, 270, 300];
         let randY = Math.floor(Math.random() * posY.length);
         let randomX = Math.floor(Math.random() * 20) + canvas.width;
         let debris = new Debris(randomX, posY[randY]);
@@ -40,6 +44,7 @@
     let count = 0;
 
     function appearDebris() {
+        if (!startGame) return;
         addDebris();
         audioRace.play();
         count++;
@@ -49,20 +54,21 @@
     }
 
     function setup() {
+        startGame = true;
         clearCanvas();
         allDebris.forEach(function (item) {
-            checkCrash(item, ship)
+            checkCrash(item, ship);
             item.update();
+
         })
-        window.requestAnimationFrame(setup);
         ship.drawImage();
         timer.displayTimer();
         timer.countDown();
         score.displayScore(ship.score);
         endGame();
+        window.requestAnimationFrame(setup);
     }
 
-    setup();
 
     function checkCrash(obj1, obj2) {
         if (obj2.x + obj2.width > obj1.x - obj1.radius &&
