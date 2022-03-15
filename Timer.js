@@ -16,7 +16,7 @@ class Timer {
     }
 
     countDown() {
-        this.y += 0.1;
+        this.y += 0.05;
     }
 
 }

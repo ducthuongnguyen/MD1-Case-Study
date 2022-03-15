@@ -11,7 +11,7 @@
 
 </head>
 <canvas id="myCanvas" width='500' height="400" style="border: 2px solid black"></canvas>
-<canvas id="instruction" width='350' height="400" style="border: 2px solid black"></canvas>
+<canvas id="instruction" width='350' height="400" style="border: 2px solid gray"></canvas>
 <div>
     <button onclick="setup()" style="position: relative; top: 420px; left:400px; width: 65px; height: 40px ">Play</button>
     <button onclick="stopGame()"style="position: relative; top: 420px; left:450px; width: 65px; height: 40px " >Stop</button>
@@ -27,13 +27,14 @@
     pen.font = '33px Arial';
     pen.fillText('How to play', 90, 50);
     pen.font = '20px Arial';
-    pen.fillText('Press button ↑ to go up', 10, 100);
-    pen.fillText('Press button ↓ to go down', 10, 130);
-    pen.fillText('Cannot go right or left', 10, 160);
-    pen.fillText('Avoid all debris to finish', 10, 190);
-    pen.fillText('Across once you will gain 1 point', 10, 220);
-    pen.fillText('Each turn estimated 10 minute', 10, 250);
-    pen.fillText('Now enjoy it.', 10, 280);
+    pen.fillText('Press button ↑ to go up', 10, 90);
+    pen.fillText('Press button ↓ to go down', 10, 120);
+    pen.fillText('Press button ← to go left', 10, 150);
+    pen.fillText('Press button → to go right', 10, 180);
+    pen.fillText('Avoid all debris to finish', 10, 210);
+    pen.fillText('Across once you will gain 1 point', 10, 240);
+    pen.fillText('Each turn lasts 2 minutes (left timer)', 10, 270);
+    pen.fillText('Now enjoy it.', 10, 300);
     pen.fillText('Thuong Nguyen', 170, 330);
     pen.fillText('03/16/2022', 200, 360);
 
@@ -67,7 +68,7 @@
         addDebris();
         audioRace.play();
         count++;
-        if (count > 220) {
+        if (count > 500) {
             clearInterval(setTimeAppearDebris);
         }
     }

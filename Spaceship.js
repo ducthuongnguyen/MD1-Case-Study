@@ -23,12 +23,20 @@ class SpaceShip {
         this.y += 5;
     }
 
+    moveRight() {
+        this.x += 5;
+    }
+
+    moveLeft() {
+        this.x -= 5;
+    }
+
     hasPlayerScoredAPoint() {
         if (this.y + this.height <= 0) {
             audioScore.play();
             ship.x = canvas.width * .5;
             ship.y = 350;
-            this.score=this.score+10;
+            this.score++;
         }
     }
 
@@ -45,6 +53,12 @@ function moveShip() {
                 break;
             case 40:
                 ship.moveDown();
+                break;
+            case 37:
+                ship.moveLeft();
+                break;
+            case 39:
+                ship.moveRight();
                 break;
                 clearCanvas();
                 ship.drawImage();
