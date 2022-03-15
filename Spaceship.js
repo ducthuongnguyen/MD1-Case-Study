@@ -28,7 +28,7 @@ class SpaceShip {
             audioScore.play();
             ship.x = canvas.width * .5;
             ship.y = 350;
-            this.score++;
+            this.score=this.score+10;
         }
     }
 
